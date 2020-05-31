@@ -1,0 +1,487 @@
+<div>
+  <toolbar></toolbar>
+</div>
+
+    <br>
+<div id="main-content" class="site-main clearfix">
+<div id="content-wrap">
+<div id="site-content" class="site-content clearfix"> 
+<div id="inner-content" class="inner-content-wrap">  
+  <div class="card-pf " style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.1), 0 3px 5px rgba(0, 0, 0, 0.2);">
+    <header class="login-pf-header">
+      <h1 id="kc-page-title">
+        <div style="font-size: 16px; padding: 40px 0px 0px 20px;">Please enter your personal information details below. Use the cell phone number or email address you have provided GEPF with, so that we can link your profile. <br>We’ll send a verification message to the cellphone number or email address. You can change your contact details by calling us on: <b>0800 117 669.</b>
+        </div>
+
+      </h1>
+    </header>
+    <div id="kc-content">
+      <div id="kc-content-wrapper">
+
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <br>
+
+            <mat-card style="width: 140%;background-color: #F5F2F0  ;">
+              <h6 class="heading clearfix " style="font-weight:700;color:#000000;margin-bottom:10px;">CREATE YOUR
+                ACCOUNT<span
+                  style="margin-left: 2px; display:inline-block; width: 50px; height: 3px; background-color: #de6d45;"></span>
+              </h6>
+              <mat-tab-group #tabRef>
+                <mat-tab label="South African Citizen" style="color: #000000;">
+                  <form class="exam596+ple-form">
+                    <br>
+                    <mat-form-field class="example-full-width">
+                      <mat-label style="font: bold;font-weight :700;color: black;">RSA ID Number</mat-label>
+                              <br>
+                      <input matInput [formControl]="idNumber" [(ngModel)]="idNumberValue" [errorStateMatcher]="matcher"
+                             placeholder="RSA ID Number"/>
+                      <mat-error *ngIf="idNumber.hasError('required')">
+                          RSA ID Number is <strong>required</strong>
+                      </mat-error>
+                      <mat-error *ngIf="idNumber.hasError('pattern')">
+                          Please enter a valid South Africa ID Number
+                      </mat-error>
+                  </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                        <div><span class="material-icons"></span> 
+                          <mat-label style="font: bold;color: black;font-weight :700;">Cell Phone Number</mat-label>
+                        </div>
+                        <br>
+                        <input matInput [formControl]="phoneNumber" [(ngModel)]="cellNumberValue" [errorStateMatcher]="matcher"
+         placeholder="eg. 0831001010" pattern=""/>
+                        <mat-error
+                                *ngIf="phoneNumber.hasError('pattern') ">
+                            Please enter a valid cell phone number
+                        </mat-error>
+
+                        <mat-error *ngIf="phoneNumber.hasError('required')">
+                            Cell Phone Number is <strong>required</strong>
+                        </mat-error>
+
+                    </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                      <mat-label style="font: bold;font-weight :700;color: black;">Email Address</mat-label>
+                      <br>
+                      <span class="material-icons"></span>
+                      <input matInput [formControl]="emailFormControl" [(ngModel)]="emailValue" [errorStateMatcher]="matcher"
+                             placeholder="eg. nick@gepf.co.za">
+
+                      <mat-error
+                              *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                          Please enter a valid email address
+                      </mat-error>
+                      <mat-error *ngIf="emailFormControl.hasError('required')">
+                          Email is <strong>required</strong>
+                      </mat-error>
+                  </mat-form-field>
+              
+
+              <div class="recaptcha" tyle="min-width: 150px; max-width: 600px; width: 100%; font-size: 80%;">
+                <mat-error *ngIf="!idNumber.hasError('required') &&!idNumber.hasError('pattern') &&
+                !emailFormControl.hasError('required')&& !emailFormControl.hasError('email') ||
+                !idNumber.hasError('required') &&!idNumber.hasError('pattern') &&
+                !phoneNumber.hasError('required') && !phoneNumber.hasError('pattern')">
+
+                    <re-captcha (resolved)="resolved($event)" siteKey="6LdMTKYUAAAAAHrn13sgUZY0wqC415JoyFamhZzM"></re-captcha>
+                 </mat-error>
+
+
+              </div>
+              <mat-card-actions>
+                <br>
+                <div fxLayout="row">
+                    <button class="Reg-button" color="primary" mat-raised-button
+                            (click)="identifyUser('ID_NUMBER',idNumberValue,cellNumberValue,emailValue)" type="button"
+>
+                        <div class="Reg-font"><label style="font: bold;font-weight :700;">CREATE MY PROFILE</label></div>
+                    </button>
+                </div>
+            </mat-card-actions>
+
+                  </form>
+                </mat-tab>
+
+
+               <mat-tab label="Non South African Citizen">
+                  <form class="exam596+ple-form">
+                    <br>
+
+                    <mat-form-field class="example-full-width">
+                      <mat-label style="font: bold;font-weight :700; color: black;">Passport Number</mat-label>
+                      <br>
+                      <input matInput [formControl]="passportNumber" [errorStateMatcher]="matcher"
+                      placeholder=" Passport Number"/>
+                    </mat-form-field>
+
+                   <mat-form-field class="example-full-width">
+                    <mat-label style="font: bold;font-weight :700;color: black;">Date Of Birth</mat-label>
+                    <br>
+                    <input matInput [matDatepicker]="picker" >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field> 
+
+                <mat-form-field class="example-full-width">
+                  <mat-label style="font: bold;font-weight :700;color: black;">Country Of Issue</mat-label>
+            <br>
+                  <select matNativeControl [formControl]="countyOfIsuue" [errorStateMatcher]="matcher" required>
+                    <option value="AF">Please select country</option>
+                    <option value="AF">Afghanistan</option>
+                    <option value="AX">Åland Islands</option>
+                    <option value="AL">Albania</option>
+                    <option value="DZ">Algeria</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="AD">Andorra</option>
+                    <option value="AO">Angola</option>
+                    <option value="AI">Anguilla</option>
+                    <option value="AQ">Antarctica</option>
+                    <option value="AG">Antigua and Barbuda</option>
+                    <option value="AR">Argentina</option>
+                    <option value="AM">Armenia</option>
+                    <option value="AW">Aruba</option>
+                    <option value="AU">Australia</option>
+                    <option value="AT">Austria</option>
+                    <option value="AZ">Azerbaijan</option>
+                    <option value="BS">Bahamas</option>
+                    <option value="BH">Bahrain</option>
+                    <option value="BD">Bangladesh</option>
+                  </select>
+                  <mat-error *ngIf="countyOfIsuue.hasError('required')">Country Of Issue required</mat-error>
+                </mat-form-field> 
+
+                <div *ngIf="EmailFormControl.hasError('required')">
+                  <mat-form-field class="example-full-width">
+                      <mat-label style="font: bold;color: black;font-weight :700;">Cell Phone</mat-label>
+                      <br>
+                      <span class="material-icons">
+</span> <input matInput [formControl]="PhoneNumber" [errorStateMatcher]="matcher"
+       placeholder="(+27) 72 412 2351" pattern=""/>
+                      <mat-error
+                              *ngIf="PhoneNumber.hasError('pattern') ">
+                          Please enter a valid phone number
+                      </mat-error>
+
+                      <mat-error *ngIf="PhoneNumber.hasError('required')">
+                          Cell Phone is <strong>required</strong>
+                      </mat-error>
+
+                  </mat-form-field>
+
+              </div>
+
+               <div *ngIf="PhoneNumber.hasError('required')">
+                <mat-form-field class="example-full-width">
+
+                    <mat-label style="font: bold;font-weight :700;color: black;">Email Address</mat-label>
+                    <br>
+                    <span class="material-icons"></span>
+                    <input matInput [formControl]="EmailFormControl" [errorStateMatcher]="matcher"
+                           placeholder="Ex. pat@example.com">
+
+                    <mat-error
+                            *ngIf="EmailFormControl.hasError('email') && !EmailFormControl.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="EmailFormControl.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div> 
+
+            <div class="recaptcha"
+            style="min-width: 150px;
+   max-width: 600px;
+   width: 100%;
+   font-size: 80%;">
+ <!--           <mat-error
+                   *ngIf="!idNumber.hasError('required') &&!idNumber.hasError('pattern') &&
+           !emailFormControl.hasError('required')&& !emailFormControl.hasError('email')">
+
+               <re-captcha (resolved)="resolved($event)"
+                           siteKey="6LdMTKYUAAAAAHrn13sgUZY0wqC415JoyFamhZzM">
+               </re-captcha>
+           </mat-error>
+           <mat-error
+                   *ngIf="!IdNumber.hasError('required') &&!IdNumber.hasError('pattern') &&
+           !PhoneNumber.hasError('required') && !PhoneNumber.hasError('pattern')">
+               <re-captcha (resolved)="resolved($event)"
+                           siteKey="6LdMTKYUAAAAAHrn13sgUZY0wqC415JoyFamhZzM">
+               </re-captcha>
+           </mat-error> -->
+       </div>
+       <mat-card-actions>
+         <br>
+        <div fxLayout="row">
+            <button class="Reg-button" color="primary" mat-raised-button 
+                    (click)="identifyUser('PASSPORT_NUMBER')" type="button"
+            >
+                <div class="Reg-font"><label style="font: bold;font-weight :700;">CREATE MY PROFILE</label></div>
+            </button>
+        </div>
+    </mat-card-actions>
+
+                  </form>
+                </mat-tab>
+
+
+              </mat-tab-group>
+            </mat-card>
+            <br>
+          </div>
+
+
+          <div class="col-md-2"></div>
+
+          <div class="col-md-4" style="color:#000000;">
+            <br><br>
+            <strong>You'll be able to do the following:</strong>
+            <br><br>
+            <b>For Members</b>
+            <ul>
+              <li class="mdc-list-item">Update Personal Information.</li>
+              <li>Update nominee(s) electronically</li>
+              <li>View/Email of Estimation Benefits.</li>
+              <li>Follow your submission</li>
+            </ul>
+            <br>
+            <b>For Pensioners</b>
+            <ul>
+                <li>Update Personal Information.</li>
+                <li>Update nominee(s) electronically</li>
+                <li>View/Email of Pension Increase Letter.</li>
+                <li>Payment Advice</li>
+              </ul>
+              <br>
+              <span style="font-size: 15px; color: black;">Trouble with creating account? <a href="" style="font-size: 15px; font-weight:bold; text-decoration: underline;">Contact support</a></span>
+          </div>
+          
+
+        </div>
+
+
+
+
+        
+      </div>
+    </div>
+
+  </div>
+</div>
+<br><br>
+
+<div class="vc-custom-col-spacing clearfix vc-col-spacing-30" style="background-color: #d3d3d3;">
+    <section class="wpb_row vc_row-fluid vc_custom_1561970778895 vc_row-has-fill">
+    <div class="finax-container">
+    <div class="row-inner clearfix">
+    <div class="wpb_column vc_column_container vc_col-sm-12">
+    <div class="vc_column-inner">
+    <div class="wpb_wrapper">
+	<div class="finax-spacer clearfix" data-desktop="95" data-mobi="60" data-smobi="60" style="height:25px"></div><div class="finax-headings clearfix  wow fadeInUp animated" data-wow-duration="0.75s" data-wow-delay="0s" style="visibility: visible; animation-duration: 0.75s; animation-delay: 0s; animation-name: fadeInUp;"><h2 class="heading clearfix " style="font-weight:700;color:#000000;margin-bottom:10px;">
+		User guide & FAQ<span></span>
+	</h2></div>
+	
+    <div class="finax-spacer clearfix" data-desktop="55" data-mobi="40" data-smobi="40" style="height:55px"></div>
+    
+    <div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner"><div class="wpb_wrapper"><div class="finax-image-box clearfix text-center" style="">
+
+        <div class="item">
+            <div class="inner" style="background-color: #f7f7f7;">
+                <div class="thumb" style=""><img width="594" height="395" alt="" data-srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-580x386.jpg 580w" sizes="(max-width: 594px) 100vw, 594px" data-src="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg" class="attachment-full size-full ls-is-cached lazyloaded" src="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg" srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-580x386.jpg 580w"><noscript><img width="594" height="395" src="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg" class="attachment-full size-full" alt="" srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/policy-documents-580x386.jpg 580w" sizes="(max-width: 594px) 100vw, 594px" /></noscript><a href=""><i class="fnicon-plus2"></i></a></div>
+                <div class="text-wrap" style="">
+                    <h3 class="title" style="font-weight:700;">
+        <a target="_blank" href="">User Guide</a>
+    </h3>   
+                </div>
+            </div>
+        </div>
+    </div><div class="button-wrap icon-right" style="display: block; text-align: center;background-color: #94ad4f;"><a href="https://www.gepf.co.za/policy-documents/" target="_self" class="finax-button btn-1794794932 medium custom" style="display: block; text-align: center;" data-background="#94ad4f" data-text="#ffffff">
+		<span style="color: #d3d3d3;">READ MORE </span>
+	</a></div></div></div></div><div class="wpb_column vc_column_container vc_col-sm-3"><div class="vc_column-inner"><div class="wpb_wrapper"><div class="finax-image-box clearfix text-center" style="">
+        <div class="item">
+            <div class="inner" style="background-color: #f7f7f7;">
+                <div class="thumb" style=""><img width="594" height="395" alt="" data-srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-580x386.jpg 580w" sizes="(max-width: 594px) 100vw, 594px" data-src="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg" class="attachment-full size-full ls-is-cached lazyloaded" src="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg" srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-580x386.jpg 580w"><noscript><img width="594" height="395" src="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg" class="attachment-full size-full" alt="" srcset="https://www.gepf.co.za/wp-content/uploads/2019/06/glossary.jpg 594w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-300x199.jpg 300w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-480x319.jpg 480w, https://www.gepf.co.za/wp-content/uploads/2019/06/glossary-580x386.jpg 580w" sizes="(max-width: 594px) 100vw, 594px" /></noscript><a href=""><i class="fnicon-plus2"></i></a></div>
+                <div class="text-wrap" style="">
+                    <h3 class="title" style="font-weight:700;">
+        <a target="_blank" href="">FAQ - Self Service </a>
+    </h3>   
+                </div>
+            </div>
+        </div>
+    </div><div class="button-wrap icon-right" style="display: block; text-align: center;background-color: #94ad4f;"><a href="https://www.gepf.co.za/glossary/" target="_self" class="finax-button btn-158793497 medium custom" style="display: block; text-align: center;" data-background="#94ad4f" data-text="#ffffff">
+		<span style="color: #d3d3d3;">READ MORE </span>
+	</a></div></div></div></div></div></div>
+	<div class="finax-spacer clearfix" data-desktop="115" data-mobi="60" data-smobi="60" style="height:115px"></div></div></div></div></section></div>
+
+
+
+</div>
+</div>
+
+  <div class="footer-promotion" style="background-image: url(https://www.gepf.co.za/wp-content/uploads/2019/03/promo-bg.png); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+    <div class="finax-container">
+      <div class="inner"><div class="title-wrap">
+  <div class="text-wrap">
+    <div class="promo-icon"><img alt="Icon" data-src="https://www.gepf.co.za/wp-content/uploads/2019/07/stop_fraud_helpline.png" class=" ls-is-cached lazyloaded" src="https://www.gepf.co.za/wp-content/uploads/2019/07/stop_fraud_helpline.png"><noscript><img src="https://www.gepf.co.za/wp-content/uploads/2019/07/stop_fraud_helpline.png" alt="Icon" /></noscript></div>
+    <h5 class="promo-title">FRAUD HELPLINE - 0800 203 900</h5>
+  </div>
+</div><div class="button-wrap">
+  <a href="https://www.gepf.co.za/contact-us/" class="promo-btn">
+    CONTACT US
+  </a>
+</div></div>
+    </div>
+  </div>
+  <footer id="footer" style="">
+      <div id="footer-widgets" class="finax-container">
+        <div class="footer-grid special-grid gutter-35">
+                <div class="w340 col">
+            <div id="text-1" class="widget widget_text"><h2 class="widget-title"><span>CLIENT CENTRE</span></h2>			<div class="textwidget"><p>GEPF Administration Office<br>
+    Building 2A, Trevenna Campus<br>
+    Corner Meintjies and Francis Baard Street<br>
+    Sunnyside, Pretoria</p>
+    <p>Tel: +27 80 011 7669<br>
+    Fax: +27 12 326 2507</p>
+    </div>
+        </div>			</div>
+    
+                  <div class="w220 col">
+              <div id="text-2" class="widget widget_text"><h2 class="widget-title"><span>BOARD OF TRUSTEES</span></h2>			<div class="textwidget"><p>Tel: +27 12 424 7330</p>
+    <p>For more information,<br>
+    click <a href="https://www.gepf.co.za/board-of-trustees/">here</a></p>
+    </div>
+        </div><div id="widget_socials-1" class="widget widget_socials"><div class="socials clearfix" style="margin: 0 -3px"><div class="icon" style="padding: 0 3px;"><a target="_blank" title="facebook" href="https://www.facebook.com/GovtEmployeesPensionFund/posts/" style="margin-bottom:3px;width:40px;height:40px;line-height:42px;border-radius:20px"><i class="coreicon-facebook"></i></a></div><div class="icon" style="padding: 0 3px;"><a target="_blank" title="twitter" href="https://twitter.com/#!/GEPF_SA" style="margin-bottom:3px;width:40px;height:40px;line-height:42px;border-radius:20px"><i class="coreicon-twitter"></i></a></div></div></div>				</div>
+                
+                  <div class="w240 col">
+              <div id="widget_links-2" class="widget widget_links"><h2 class="widget-title"><span>GEPF Conference</span></h2>        <ul class="links-wrap clearfix  no-arrow">
+                
+                            <li style="">
+                                <a href="https://www.gepfconference.co.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    GEPF Conference
+                                </a>
+                            </li>        </ul>
+    
+        </div><div id="widget_links-1" class="widget widget_links"><h2 class="widget-title"><span>QUICK LINKS</span></h2>        <ul class="links-wrap clearfix col2 no-arrow">
+                
+                            <li style="">
+                                <a href="https://www.gepf.co.za/benefits/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Benefits
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gepf.co.za/forms/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Forms
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gepf.co.za/investments/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Investments
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gepf.co.za/vacancies/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Vacancies
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gepf.co.za/tenders/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Tenders
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gepf.co.za/contact-us/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    Contact Us
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.pscbc.co.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    PSCBC
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.worldbank.org/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    World Bank
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="http://www.treasury.gov.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    National Treasury
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.pic.gov.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    PIC
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="http://www.dpsa.gov.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    DPSA
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.unpri.org/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    PRI
+                                </a>
+                            </li>
+                            <li style="">
+                                <a href="https://www.gpaa.gov.za/" style="">
+                                    <i class="fa fa-" style=""></i>
+                                    GPAA
+                                </a>
+                            </li>        </ul>
+    
+        </div>				</div>
+          
+                  <div class="w275 col">
+                  <div id="recent-posts-3" class="widget widget_recent_entries">		<h2 class="widget-title"><span>Recent News</span></h2>		<ul>
+                          <li>
+              <a href="https://www.gepf.co.za/gepf-to-take-action-following-report-of-the-judicial-commission-of-inquiry-into-allegations-of-impropriety-at-the-public-investment-corporation/">GEPF to take action following report of the Judicial Commission of Inquiry into Allegations of Impropriety at the Public Investment Corporation</a>
+                      </li>
+                          <li>
+              <a href="https://www.gepf.co.za/coronavirus-covid-19-message/">Coronavirus (COVID-19) Message</a>
+                      </li>
+                          <li>
+              <a href="https://www.gepf.co.za/statement-by-president-cyril-ramaphosa-on-measures-to-combat-covid-19-epidemic-2/">STATEMENT BY PRESIDENT CYRIL RAMAPHOSA ON MEASURES TO COMBAT COVID-19 EPIDEMIC</a>
+                      </li>
+                          <li>
+              <a href="https://www.gepf.co.za/gepf-pensioners-will-receive-a-3-6-annual-pension-increase-as-of-1-april-2020/">GEPF pensioners will receive a 3.6% annual pension increase as of 1 April 2020</a>
+                      </li>
+              </ul>
+        </div>				</div>
+              </div>
+      </div>
+    </footer>
+    <div id="bottom" style="">
+        <div class="finax-container">
+            <div class="bottom-bar-inner-wrap">
+                <div class="bottom-bar-copyright">
+                                        <div id="copyright">
+                            © 2020 GEPF. All rights reserved. | <a href="https://www.gepf.co.za/disclaimer/">Disclaimer</a>  
+    |  <a href="https://www.gepf.co.za/fraud-line/">Fraud Line</a>  
+    |  <a href="https://www.gepf.co.za/contact-us/">Contact Us</a>
+    
+                        </div>
+                                </div><!-- /.bottom-bar-copyright -->
+    
+                <div class="bottom-bar-menu">
+                                </div><!-- /.bottom-bar-menu -->
+            </div>
+        </div>
+    </div>
